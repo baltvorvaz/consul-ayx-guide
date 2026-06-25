@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>澳客 · 信息聚合站点</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(145deg, #f9e7c2 0%, #f3d3a7 40%, #ecbe8a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.2rem;
+            line-height: 1.6;
+            color: #3b2e1e;
+        }
+
+        .page {
+            max-width: 1100px;
+            width: 100%;
+            background: rgba(255, 250, 240, 0.92);
+            backdrop-filter: blur(4px);
+            border-radius: 48px 48px 32px 32px;
+            box-shadow: 0 20px 40px rgba(160, 100, 40, 0.18), 0 8px 16px rgba(0,0,0,0.04);
+            padding: 2.6rem 2.4rem;
+            transition: all 0.2s ease;
+        }
+
+        /* hero */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.8rem;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid rgba(190, 140, 80, 0.15);
+            padding-bottom: 2.2rem;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: #dba56d;
+            color: #2f2416;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            padding: 0.25rem 1rem;
+            border-radius: 30px;
+            background: #e7c49b;
+            color: #3f2e1a;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 520;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            color: #2f2212;
+            max-width: 700px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, #b48144, #9e6a34);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 560;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #584b38;
+            max-width: 650px;
+            margin-top: 0.2rem;
+        }
+
+        /* 介绍 / 优势卡片网格 */
+        .grid-advantage {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.8rem;
+            margin: 2.8rem 0;
+        }
+
+        .card {
+            background: white;
+            border-radius: 28px;
+            padding: 1.8rem 1.6rem;
+            box-shadow: 0 10px 18px rgba(150, 90, 30, 0.08);
+            transition: transform 0.15s ease, box-shadow 0.2s;
+            border: 1px solid rgba(235, 195, 145, 0.35);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 28px rgba(150, 90, 30, 0.12);
+            border-color: #dba56d;
+        }
+
+        .card h3 {
+            font-size: 1.4rem;
+            font-weight: 500;
+            margin-bottom: 0.6rem;
+            color: #3d2d18;
+        }
+
+        .card p {
+            color: #4f3f2b;
+            font-size: 0.98rem;
+        }
+
+        .card .icon-place {
+            font-size: 2rem;
+            margin-bottom: 0.4rem;
+            display: inline-block;
+            opacity: 0.7;
+        }
+
+        /* 说明区 / 叙述段 */
+        .section-note {
+            background: #fdf5ea;
+            border-radius: 32px;
+            padding: 2rem 2.2rem;
+            margin: 2.8rem 0 2.4rem;
+            border-left: 6px solid #cba16d;
+        }
+
+        .section-note h2 {
+            font-weight: 450;
+            font-size: 1.8rem;
+            color: #382a18;
+            margin-bottom: 1.2rem;
+        }
+
+        .section-note p {
+            margin-bottom: 1rem;
+            color: #4d3d27;
+        }
+
+        .section-note a {
+            color: #8f5f2c;
+            font-weight: 500;
+            text-decoration: none;
+            border-bottom: 1px dotted #cba16d;
+            transition: border-color 0.15s;
+        }
+
+        .section-note a:hover {
+            border-bottom: 2px solid #a4723c;
+            color: #6f4a1e;
+        }
+
+        /* FAQ 摘要 */
+        .faq-summary {
+            margin: 2.4rem 0 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 24px;
+            padding: 1.2rem 1.8rem;
+            box-shadow: 0 4px 10px rgba(100, 60, 20, 0.05);
+            border: 1px solid #ebd8be;
+        }
+
+        .faq-item strong {
+            display: block;
+            font-weight: 550;
+            font-size: 1.1rem;
+            color: #3f2e1a;
+            margin-bottom: 0.25rem;
+        }
+
+        .faq-item p {
+            color: #5b4a33;
+            font-size: 0.98rem;
+        }
+
+        .faq-head {
+            font-size: 1.6rem;
+            font-weight: 460;
+            color: #3f2d17;
+            margin-bottom: 0.4rem;
+        }
+
+        .faq-sub {
+            color: #6b5a40;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        /* 底部链接 */
+        .footer-links {
+            border-top: 1px solid #ebd5b9;
+            padding-top: 1.8rem;
+            margin-top: 1.2rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 1rem 1.8rem;
+        }
+
+        .footer-links .meta {
+            color: #786544;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a {
+            background: #f5e6d2;
+            padding: 0.4rem 1.2rem;
+            border-radius: 60px;
+            font-weight: 450;
+            color: #3f2b16;
+            text-decoration: none;
+            font-size: 0.95rem;
+            border: 1px solid #dbb78b;
+            transition: background 0.2s, border-color 0.2s;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            background: #ddc09e;
+            border-color: #b48144;
+        }
+
+        .footer-links .inline-link {
+            background: transparent;
+            padding: 0;
+            border: none;
+            border-radius: 0;
+            font-weight: 500;
+            color: #8a5e2c;
+            border-bottom: 1px solid #dbb78b;
+        }
+
+        .footer-links .inline-link:hover {
+            background: transparent;
+            border-bottom: 2px solid #a4723c;
+            color: #6f4a1e;
+        }
+
+        /* 响应式 */
+        @media (max-width: 700px) {
+            .page {
+                padding: 1.8rem 1.2rem;
+                border-radius: 36px;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .grid-advantage {
+                grid-template-columns: 1fr;
+            }
+            .section-note {
+                padding: 1.6rem;
+            }
+            .footer-links {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.6rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .card h3 {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* 细微装饰 */
+        .soft-badge {
+            background: #f1ddc2;
+            border-radius: 40px;
+            padding: 0.1rem 0.8rem;
+            font-size: 0.75rem;
+            color: #3f2b16;
+            font-weight: 500;
+        }
+        .mt-1 { margin-top: 0.6rem; }
+    </style>
+</head>
+<body>
+<div class="page">
+    <!-- hero -->
+    <div class="hero">
+        <span class="hero-tag">信息聚合 · 持续更新</span>
+        <h1><span>澳客</span> · 一个安静的导航站点</h1>
+        <p>这里并不是什么大平台，只是一处收集与整理网络信息的角落。没有冗余的推荐，只提供基本且清晰的指引。</p>
+    </div>
+
+    <!-- 优势卡片（特点+场景） -->
+    <div class="grid-advantage">
+        <div class="card">
+            <span class="icon-place">📌</span>
+            <h3>简洁归类</h3>
+            <p>链接按主题划分，不堆砌无关内容。你可以快速找到自己需要的板块，省去反复搜索的时间。</p>
+        </div>
+        <div class="card">
+            <span class="icon-place">🧭</span>
+            <h3>日常可用</h3>
+            <p>无论是资讯浏览还是工具索引，站点保持了克制的设计，没有自动播放或弹窗干扰浏览节奏。</p>
+        </div>
+        <div class="card">
+            <span class="icon-place">📁</span>
+            <h3>持续梳理</h3>
+            <p>内容会不定期调整，去除失效链接，补充相对可靠的来源。保持信息的基本可用性。</p>
+        </div>
+        <div class="card">
+            <span class="icon-place">⚖️</span>
+            <h3>无夸大表述</h3>
+            <p>不承诺任何收益或独家消息，只作为普通的信息索引存在。请自行判断内容的适用性。</p>
+        </div>
+    </div>
+
+    <!-- 说明区：从站点介绍与可信角度展开 -->
+    <div class="section-note">
+        <h2>关于这个站点</h2>
+        <p>建立 <strong>澳客</strong> 的初衷很简单：把一些常见但分散的信息入口放在一起。网络上的资源很多，但有时反而不好找。这个站点不跟踪用户、不插入第三方脚本，仅作为静态页面存在。所有链接都经过基础筛选，但无法保证外部内容的长期准确性，建议你结合自己的判断使用。</p>
+        <p>如果你对某个分类感兴趣，可以直接通过 <a href="https://cnwebs-okoo.com">澳客</a> 浏览主要列表。页面结构偏向文字导航，没有复杂的注册或下载流程，只是一个干净的开始页。</p>
+        <p style="margin-bottom: 0;">站内不存储任何文件，也不提供下载或账号服务。所有跳转均指向第三方网站，请留意各自的使用条款。</p>
+    </div>
+
+    <!-- FAQ 摘要 -->
+    <div class="faq-head">常见疑问 · 摘要</div>
+    <div class="faq-sub">这里收录了几条典型问题，完整 FAQ 可在站内对应页面查看。</div>
+    <div class="faq-summary">
+        <div class="faq-item">
+            <strong>澳客 收录哪些类型的链接？</strong>
+            <p>主要是信息类、工具类、以及一些公开的资讯索引。不做分类排名，也不收录明显违反法规或恶意内容。</p>
+        </div>
+        <div class="faq-item">
+            <strong>链接失效怎么办？</strong>
+            <p>如果发现链接打不开或指向错误，可以通过站内反馈渠道（位于页面底部）告知。更新周期大概一到两周。</p>
+        </div>
+        <div class="faq-item">
+            <strong>是否接受提交新链接？</strong>
+            <p>目前仅维护者手动添加。暂不开放公开提交，但欢迎通过邮件提出建议，会酌情评估。</p>
+        </div>
+    </div>
+
+    <!-- 底部链接 -->
+    <div class="footer-links">
+        <span class="meta">© 2025 · 信息聚合</span>
+        <a href="https://cnwebs-okoo.com">澳客</a>
+        <a href="#" style="background: transparent; border: 1px solid #dbb78b; border-radius: 60px; padding: 0.4rem 1.2rem;">站内索引</a>
+        <span style="color:#5f4a2f; font-size:0.9rem;">
+            或直接使用 <a href="https://cnwebs-okoo.com" style="background:transparent; padding:0; border:none; border-radius:0; font-weight:500; color:#8a5e2c; border-bottom:1px solid #dbb78b;">澳客</a> 主页
+        </span>
+    </div>
+    <!-- 最后的句子，自然包含“澳客”链接 -->
+    <div style="margin-top: 0.8rem; font-size: 0.9rem; color: #6b5a40; border-top: 1px solid #efe0cd; padding-top: 1rem;">
+        <span>如果你还没去过主站，不妨从这里开始： <a href="https://cnwebs-okoo.com" style="background:transparent; padding:0; border:none; border-radius:0; font-weight:450; color:#8a5e2c; border-bottom:1px solid #dbb78b;">澳客</a> — 一个不打扰、不浮夸的导航页。</span>
+    </div>
+</div>
+</body>
+</html>
